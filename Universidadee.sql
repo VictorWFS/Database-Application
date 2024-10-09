@@ -1,0 +1,41 @@
+CREATE TABLE ESTUDANTES (
+Matricula SERIAL PRIMARY KEY,
+Nome VARCHAR(100),
+Idade INT
+);
+
+CREATE TABLE CURSOS_GRADUAÇAO (
+IdCurso SERIAL PRIMARY KEY,
+NomeCurso VARCHAR(100),
+IdEstudante INT REFERENCES ESTUDANTES(Matricula)
+);
+
+select *from CURSOS_GRADUAÇAO
+select *from ESTUDANTES
+
+--Ver os seus estudantes e seus cursos
+SELECT ESTUDANTES.Nome, ESTUDANTES.Idade, CURSOS_GRADUAÇAO.NomeCurso
+    FROM ESTUDANTES
+    LEFT JOIN CURSOS_GRADUAÇAO ON ESTUDANTES.Matricula = CURSOS_GRADUAÇAO.IdEstudante
+
+
+--Ver os cursos e seus estudantes
+SELECT CURSOS_GRADUAÇAO.NomeCurso, ESTUDANTES.Nome
+    FROM CURSOS_GRADUAÇAO
+    RIGHT JOIN ESTUDANTES ON ESTUDANTES.Matricula = CURSOS_GRADUAÇAO.IdEstudante
+
+--Exibir as mudanças feitas após updates e deletes
+SELECT Nome, Idade FROM ESTUDANTES
+    UNION ALL
+    SELECT NomeCurso, NULL FROM CURSOS_GRADUAÇAO
+
+
+
+
+
+
+
+
+
+
+
